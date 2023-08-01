@@ -9,7 +9,7 @@ PWD := $(shell pwd)
 
 .PHONY: build clean  
 
-build: sneaky_mod.ko
+build: sneaky_mod.ko sneaky_process
 sneaky_mod.ko:
 	$(MAKE)  -C $(KERNELDIR) M=$(PWD) modules  
 sneaky_process: sneaky_process.c
