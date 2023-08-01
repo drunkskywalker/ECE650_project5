@@ -1,0 +1,2 @@
+sneaky_mod test
+the line above should exist
